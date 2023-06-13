@@ -15,8 +15,9 @@ import {
     Thead,
     Tr,
 } from '@chakra-ui/react';
-import {format, parse} from 'date-fns';
-import {parseCSV} from './utils';
+import {format} from 'date-fns';
+import {parseCSV, formatNumber} from '../utils.js';
+import TableData from "./TableData.jsx";
 
 
 const MainComponent = () => {
@@ -30,14 +31,6 @@ const MainComponent = () => {
         setTransactions(transactions);
     };
 
-    const formatMonth = (month) => {
-        const parsedMonth = parse(month, 'yyyy-MM', new Date());
-        return format(parsedMonth, 'MMMM yyyy');
-    };
-
-    const formatNumber = (number) => {
-        return Number(number).toFixed(2);
-    };
 
     return (
         <Box>
@@ -50,32 +43,7 @@ const MainComponent = () => {
             <Button onClick={handleParseCSV} colorScheme="blue" mt={4}>
                 Parse CSV
             </Button>
-            {tableData && (
-                <Table variant="striped" size="md" mt={4}>
-                    <Thead>
-                        <Tr>
-                            <Th>Month</Th>
-                            <Th>Spend in Calendar Month</Th>
-                            <Th>Spend Milestone Achieved</Th>
-                            <Th>Gyftr Transaction Value</Th>
-                            <Th>GrabDeals Transaction Value</Th>
-                            <Th>Travel Edge Transaction Value</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {tableData.map((row) => (
-                            <Tr key={row.month}>
-                                <Td>{formatMonth(row.month)}</Td>
-                                <Td>{formatNumber(row.spendInCalendarMonth)}</Td>
-                                <Td>{row.spendMilestoneAchieved}</Td>
-                                <Td>{formatNumber(row.gyftrTransactionValue)}</Td>
-                                <Td>{formatNumber(row.grabdealsTransactionValue)}</Td>
-                                <Td>{formatNumber(row.travelEdgeTransactionValue)}</Td>
-                            </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
-            )}
+            <TableData tableData={tableData} />
 
             <Accordion allowToggle mt={4}>
                 <AccordionItem>

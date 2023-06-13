@@ -62,6 +62,17 @@ const parseCSV = (data) => {
     return { transactions, tableData };
 };
 
+const formatMonth = (month) => {
+    const parsedMonth = parse(month, 'yyyy-MM', new Date());
+    return format(parsedMonth, 'MMMM yyyy');
+};
+
+const formatNumber = (number) => {
+    return Number(number).toFixed(2);
+};
+
 export {
-    parseCSV
+    parseCSV,
+    formatMonth,
+    formatNumber
 };
