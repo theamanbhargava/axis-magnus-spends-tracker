@@ -4,6 +4,13 @@ const theme = extendTheme({
     config: {
         useSystemColorMode: false,
     },
+    styles: {
+        global: {
+            body: {
+                textAlign: 'left',
+            },
+        },
+    },
 })
 
 function ChakraWrapper({ children }) {

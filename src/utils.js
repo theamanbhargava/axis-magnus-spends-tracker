@@ -3,7 +3,7 @@ import { format, parse, startOfMonth } from 'date-fns';
 const parseCSV = (data) => {
     const lines = data.split('\n');
     const headers = lines[0].split(',').slice(1);
-    let transactions = lines.slice(2).map(line => {
+    let transactions = lines.slice(1).map(line => {
         const cells = line.split(',');
         let transaction = {};
         headers.forEach((header, index) => {
@@ -11,6 +11,7 @@ const parseCSV = (data) => {
         });
         return transaction;
     });
+    console.log({lines, headers, transactions})
 
     transactions.forEach(transaction => {
         transaction['Transaction Date'] = parse(transaction['Transaction Date'], "dd MMM ''yy", new Date());
@@ -29,7 +30,7 @@ const parseCSV = (data) => {
 
     transactions = transactions.filter(transaction => {
         const detail = transaction['Transaction Details'].toLowerCase();
-        return !(detail.includes('online payment') || detail.includes('euronet'));
+        return !(detail.includes('online payment') || detail.includes('euronet') || detail.includes('rebates'));
     });
 
     const groupedTransactions = transactions.reduce((grouped, transaction) => {
