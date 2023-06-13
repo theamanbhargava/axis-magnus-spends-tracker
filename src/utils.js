@@ -1,4 +1,4 @@
-import { format, parse, startOfMonth } from 'date-fns';
+import {format, parse, startOfMonth} from 'date-fns';
 
 const parseCSV = (data) => {
     const lines = data.split('\n');
@@ -11,7 +11,6 @@ const parseCSV = (data) => {
         });
         return transaction;
     });
-    console.log({lines, headers, transactions})
 
     transactions.forEach(transaction => {
         transaction['Transaction Date'] = parse(transaction['Transaction Date'], "dd MMM ''yy", new Date());
@@ -58,9 +57,8 @@ const parseCSV = (data) => {
             travelEdgeTransactionValue
         };
     });
-    console.log({tableData})
 
-    return { transactions, tableData };
+    return {transactions, tableData};
 };
 
 const formatMonth = (month) => {
@@ -73,7 +71,5 @@ const formatNumber = (number) => {
 };
 
 export {
-    parseCSV,
-    formatMonth,
-    formatNumber
+    parseCSV, formatMonth, formatNumber
 };
