@@ -57,6 +57,7 @@ const parseCSV = (data) => {
             travelEdgeTransactionValue
         };
     });
+    console.log({tableData})
 
     return { transactions, tableData };
 };

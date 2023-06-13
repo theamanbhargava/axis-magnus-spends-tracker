@@ -1,4 +1,5 @@
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import PropTypes from "prop-types";
 
 const TransactionList = ({ transactions }) => {
     return (
@@ -26,5 +27,9 @@ const TransactionList = ({ transactions }) => {
         </Table>
     );
 };
+
+TransactionList.propTypes = {
+    transactions: PropTypes.array.isRequired
+}
 
 export default TransactionList;
