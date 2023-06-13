@@ -1,6 +1,9 @@
 # Spend Tracker
 
+[Live URL](https://magnus.aman.fyi)
+
 Spend Tracker is a web application designed to track spends and monitor progress towards the monthly spend-based milestone of the Axis Bank Magnus credit card.
+
 
 ## Features
 

@@ -23,11 +23,11 @@ const LandingPage = () => {
                         <Alert status="info" variant="left-accent">
                             <AlertIcon/>
                             <Text>
-                                Visit the{" "}
+                                Visit{" "}
                                 <Link
                                     href="https://www.axisbank.com/retail/cards/credit-card/axis-bank-magnus-card/feature-benefits"
                                     target="_blank" rel="noopener noreferrer">
-                                    Axis Bank Magnus Card
+                                    Axis Magnus Official Website
                                 </Link>{" "}
                                 <Icon as={FiExternalLink}/>
                             </Text>
