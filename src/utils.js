@@ -21,7 +21,7 @@ const parseCSV = (data) => {
         if (detail.includes('paytm_pageindustrieslt')) {
             transaction['Transaction Details'] = 'Grabdeals';
         } else if (detail.includes('vouchagram')) {
-            transaction['Transaction Details'] = 'Gyftr eligible';
+            transaction['Transaction Details'] = 'Gyftr Transaction';
         } else if (detail.includes('vernost marketing')) {
             transaction['Transaction Details'] = 'Travel Edge';
         }
@@ -29,7 +29,7 @@ const parseCSV = (data) => {
 
     transactions = transactions.filter(transaction => {
         const detail = transaction['Transaction Details'].toLowerCase();
-        return !(detail.includes('online payment') || detail.includes('euronet') || detail.includes('rebates'));
+        return !(detail.includes('online payment') || detail.includes('euronet') || detail.includes('rebates') || detail.includes('joining fee') || detail.includes('gst'));
     });
 
     const groupedTransactions = transactions.reduce((grouped, transaction) => {
@@ -45,7 +45,7 @@ const parseCSV = (data) => {
         const monthlyTransactions = groupedTransactions[month];
         const spendInCalendarMonth = monthlyTransactions.reduce((sum, transaction) => sum + parseFloat(transaction['Amount in INR']), 0);
         const spendMilestoneAchieved = spendInCalendarMonth >= 100000 ? 'Yes' : 'No';
-        const gyftrTransactionValue = monthlyTransactions.filter(transaction => transaction['Transaction Details'] === 'Gyftr eligible').reduce((sum, transaction) => sum + parseFloat(transaction['Amount in INR']), 0);
+        const gyftrTransactionValue = monthlyTransactions.filter(transaction => transaction['Transaction Details'] === 'Gyftr Transaction').reduce((sum, transaction) => sum + parseFloat(transaction['Amount in INR']), 0);
         const grabdealsTransactionValue = monthlyTransactions.filter(transaction => transaction['Transaction Details'] === 'Grabdeals').reduce((sum, transaction) => sum + parseFloat(transaction['Amount in INR']), 0);
         const travelEdgeTransactionValue = monthlyTransactions.filter(transaction => transaction['Transaction Details'] === 'Travel Edge').reduce((sum, transaction) => sum + parseFloat(transaction['Amount in INR']), 0);
         return {
