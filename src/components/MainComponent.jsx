@@ -38,7 +38,7 @@ const MainComponent = () => {
     };
 
 
-    return (<Container maxW="container.md" p={4}>
+    return (<Container maxW="container.xl" p={4}>
         <LandingPage/>
         <Box mt={8}>
             <FormControl>

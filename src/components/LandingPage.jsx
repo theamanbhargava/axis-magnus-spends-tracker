@@ -14,7 +14,7 @@ const LandingPage = () => {
                 This app is designed to help you track your spends and progress towards the monthly spend-based
                 milestone of the Axis Bank Magnus credit card.
             </Text>
-            <Grid templateColumns='repeat(2, 1fr)' gap={6}>
+            <Grid w={'100%'} templateColumns='repeat(2, 1fr)' gap={6}>
                 <GridItem w='100%'>
                     <Alert status="success" variant="left-accent">
                         <AlertIcon/>
