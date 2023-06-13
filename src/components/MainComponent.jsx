@@ -6,18 +6,14 @@ import {
     AccordionItem,
     AccordionPanel,
     Box,
-    Button,
-    Table,
-    Tbody,
-    Td,
+    Button, Container,
     Textarea,
-    Th,
-    Thead,
-    Tr,
 } from '@chakra-ui/react';
-import {format} from 'date-fns';
-import {parseCSV, formatNumber} from '../utils.js';
+import {parseCSV} from '../utils.js';
 import TableData from "./TableData.jsx";
+import TransactionList from "./TransactionList.jsx";
+import ErrorBoundary from "./ErrorBoundary.jsx";
+import LandingPage from "./LandingPage.jsx";
 
 
 const MainComponent = () => {
@@ -33,7 +29,9 @@ const MainComponent = () => {
 
 
     return (
-        <Box>
+        <Container maxW="container.md" p={4}>
+            <LandingPage />
+        <Box mt={8}>
             <Textarea
                 value={csvData}
                 onChange={(e) => setCSVData(e.target.value)}
@@ -43,7 +41,9 @@ const MainComponent = () => {
             <Button onClick={handleParseCSV} colorScheme="blue" mt={4}>
                 Parse CSV
             </Button>
-            <TableData tableData={tableData} />
+            <ErrorBoundary errorMessage="There was a problem generating the monthly summary. Please try again later.">
+                <TableData  tableData={tableData}/>
+            </ErrorBoundary>
 
             <Accordion allowToggle mt={4}>
                 <AccordionItem>
@@ -56,32 +56,14 @@ const MainComponent = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        <Table variant="striped" size="md">
-                            <Thead>
-                                <Tr>
-                                    <Th>Transaction Date</Th>
-                                    <Th>Transaction Details</Th>
-                                    <Th>TXN Currency</Th>
-                                    <Th>Amt in TXN Currency</Th>
-                                    <Th>Amount in INR</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {transactions.map((transaction, index) => (
-                                    <Tr key={index}>
-                                        <Td>{format(transaction['Transaction Date'], 'dd MMM yyyy')}</Td>
-                                        <Td>{transaction['Transaction Details']}</Td>
-                                        <Td>{transaction['TXN Currency']}</Td>
-                                        <Td>{formatNumber(transaction['Amt in TXN Currency'])}</Td>
-                                        <Td>{formatNumber(transaction['Amount in INR'])}</Td>
-                                    </Tr>
-                                ))}
-                            </Tbody>
-                        </Table>
+                        <ErrorBoundary errorMessage="There was a problem generating the list of transactions. Please try again later.">
+                            <TransactionList  transactions={transactions}/>
+                        </ErrorBoundary>
                     </AccordionPanel>
                 </AccordionItem>
             </Accordion>
         </Box>
+        </Container>
     );
 };
 

@@ -4,7 +4,7 @@ import {formatMonth, formatNumber} from "../utils.js";
 import {Fragment} from "react";
 
 function TableData({tableData}){
-    if(!tableData){
+    if(!tableData || tableData?.length === 0){
         return (<Fragment />)
     }
     return (                <Table variant="striped" size="md" mt={4}>
