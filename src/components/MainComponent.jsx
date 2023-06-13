@@ -48,9 +48,9 @@ const MainComponent = () => {
                         value={csvData}
                         onChange={(e) => setCSVData(e.target.value)}
                         placeholder="Paste your transaction data here"
-                        rows={10}
+                        rows={5}
                     />
-                    <FormHelperText>
+                    <FormHelperText textAlign="left">
                         Please enter your spend data in the following CSV format:
                         <br/>
                         - The first row should contain the column headers: Transaction Date, Transaction Details, TXN

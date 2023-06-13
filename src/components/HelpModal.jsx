@@ -1,13 +1,44 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
-    Button, Image, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,
+    Button,
+    Image,
+    Link,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
 } from "@chakra-ui/react";
-import {Carousel} from "react-responsive-carousel";
 import screenshot1 from "../assets/first.png";
 import screenshot2 from "../assets/second.png";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {Carousel} from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const HelpModal = () => {
+    const [selectedSlide, setSelectedSlide] = useState(0);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowLeft' && selectedSlide > 0) {
+                setSelectedSlide(selectedSlide - 1);
+            } else if (event.key === 'ArrowRight' && selectedSlide < 1) {
+                setSelectedSlide(selectedSlide + 1);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [selectedSlide]);
+
+    const handleSlideChange = (index) => {
+        setSelectedSlide(index);
+    };
+
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpen = () => {
@@ -28,7 +59,11 @@ const HelpModal = () => {
                 <ModalHeader>How to Get Data from Axis Bank Website</ModalHeader>
                 <ModalCloseButton/>
                 <ModalBody>
-                    <Carousel showThumbs={false} showStatus={false}>
+                    <Carousel
+                        showArrows={true}
+                        selectedItem={selectedSlide}
+                        onChange={handleSlideChange}
+                        emulateTouch showThumbs={false} showStatus={false}>
                         <div>
                             <Image
                                 src={screenshot1}
@@ -47,7 +82,8 @@ const HelpModal = () => {
                                 maxH="80vh"
                                 mx="auto"
                             />
-                            <p> Screenshot 2: Which lines to remove from the downloaded CSV statement.</p>
+                            <p> Screenshot 2: Remove lines indicated above from the downloaded CSV statement. Paste the
+                                remained in the textarea and click the button to generate data.</p>
                         </div>
                     </Carousel>
                 </ModalBody>
